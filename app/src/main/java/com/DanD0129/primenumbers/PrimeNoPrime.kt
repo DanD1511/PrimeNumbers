@@ -2,7 +2,7 @@ package com.DanD0129.primenumbers
 
 import kotlin.math.sqrt
 
-class IsPrime {
+class PrimeNoPrime {
     fun main() {
         val primeList = giveMeXPrimes(10)
         println("la lista obtenida es: ${primeList.toString()}")
