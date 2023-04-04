@@ -4,14 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -28,19 +34,30 @@ class MainActivity : ComponentActivity() {
 @Composable
 
 fun HelloWord() {
-        Column(modifier = Modifier.fillMaxSize()){
-            InfoField(title = "Enter number to check if it is prime")
-            InfoField(title = "Enter number oƒ primes to calculate")
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ){
+            Box(modifier = Modifier.fillMaxSize()) {
+                Column(
+                    modifier = Modifier.align(
+                        alignment = Alignment.Center
+                    )
+                ){
+                    InfoField(title = "Enter number to check if it is prime", onButtonClicked = {})
+                    InfoField(title = "Enter number oƒ primes to calculate", onButtonClicked = {})
+                }
+            }
+
         }
     }
 
 
 @Composable
 fun InfoField(
-    title: String = "Title"
+    title: String = "Title",
+    onButtonClicked: (String) -> Unit
 ) {
     val inputNumber = remember { mutableStateOf("") }
-
         Column {
             Text(
                 modifier = Modifier
@@ -49,12 +66,23 @@ fun InfoField(
                 text = title
             )
             Row {
-                TextField(modifier = Modifier.weight(0.5f), value = inputNumber.value, onValueChange = {
-                    inputNumber.value
-                })
-                Button(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
-                    Text("Calculate")
+                TextField(
+                    modifier = Modifier.weight(0.8f),
+                    value = inputNumber.value,
+                    onValueChange = {
+                        inputNumber.value = it
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                Button(
+                    modifier = Modifier.weight(0.2f),
+                    onClick = {
+                        onButtonClicked(inputNumber.value)
+                    }
+                ) {
+                    Icon(Icons.Rounded.Send, contentDescription = "Send" )
                 }
             }
         }
 }
+
