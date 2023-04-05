@@ -7,6 +7,15 @@ android {
     namespace 'com.DanD0129.primenumbers'
     compileSdk 33
 
+    sourceSets {
+        main {
+            resources {
+                srcDirs += ['src/main/fonts']
+                exclude '**/*.svg'
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "com.DanD0129.primenumbers"
         minSdk 24
